@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context="fall2018.csc2017.slidingtiles.StartingActivity">
 
+    <Button
+        android:id="@+id/ScoreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/StartButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="147dp"
+        android:onClick="scoreboardPressed"
+        android:text="Score Board" />
+
     <TextView
         android:id="@+id/GameText"
         android:layout_width="wrap_content"

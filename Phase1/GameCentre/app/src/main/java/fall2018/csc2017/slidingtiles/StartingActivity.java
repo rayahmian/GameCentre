@@ -44,6 +44,12 @@ public class StartingActivity extends AppCompatActivity {
         addSaveButtonListener();
     }
 
+    /** Called when the user taps the scoreboard button. */
+    public void scoreboardPressed(View view) {
+        Intent intent = new Intent(this, ScoreBoardActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * Activate the start button.
      */
@@ -57,6 +63,10 @@ public class StartingActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Activate the score button.
+     */
 
     /**
      * Activate the load button.
