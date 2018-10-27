@@ -53,4 +53,12 @@
         android:layout_toEndOf="@+id/StartButton"
         android:text="Save Game" />
 
+    <Button
+        android:id="@+id/SettingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/SaveButton"
+        android:layout_alignBottom="@+id/ScoreButton"
+        android:text="Settings" />
+
 </RelativeLayout>

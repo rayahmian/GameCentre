@@ -17,17 +17,17 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The number of rows.
      */
-    final static int NUM_ROWS = 4;
+    private final int NUM_ROWS;
 
     /**
      * The number of rows.
      */
-    final static int NUM_COLS = 4;
+    private final int NUM_COLS;
 
     /**
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
+    private Tile[][] tiles;
 
     /**
      * A new board of tiles in row-major order.
@@ -35,11 +35,14 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      *
      * @param tiles the tiles for the board
      */
-    Board(List<Tile> tiles) {
+    Board(List<Tile> tiles, int rows, int columns) {
+        NUM_ROWS = rows;
+        NUM_COLS = columns;
+        this.tiles = new Tile[NUM_ROWS][NUM_COLS];
         Iterator<Tile> iter = tiles.iterator();
 
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        for (int row = 0; row != NUM_ROWS; row++) {
+            for (int col = 0; col != NUM_COLS; col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -81,6 +84,20 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         setChanged();
         notifyObservers();
     }
+
+    /**
+     * Return the number of rows.
+     *
+     * @return the number of rows
+     */
+     int getNUM_ROWS(){return NUM_ROWS;}
+
+    /**
+     * Return the number of rows.
+     *
+     * @return the number of rows
+     */
+    int getNUM_COLS(){return NUM_COLS;}
 
     /**
      * Return a string representation of tiles in row-major order
@@ -131,7 +148,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
          */
         @Override
         public Tile next() {
-            Tile result = Board.this.getTile(nextIndex / 4, nextIndex % 4);
+            Tile result = Board.this.getTile(nextIndex / NUM_ROWS, nextIndex % NUM_COLS);
             nextIndex++;
             return result;
         }
