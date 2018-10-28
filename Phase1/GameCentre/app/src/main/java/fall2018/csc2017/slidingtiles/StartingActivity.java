@@ -31,11 +31,16 @@ public class StartingActivity extends AppCompatActivity {
      * The board manager.
      */
     private BoardManager boardManager;
+    /**
+     * The scoreboard.
+     */
+    private ScoreBoard scoreBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         boardManager = new BoardManager(4, 4);
+        scoreBoard = new ScoreBoard();
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
@@ -63,10 +68,6 @@ public class StartingActivity extends AppCompatActivity {
             }
         });
     }
-
-    /**
-     * Activate the score button.
-     */
 
     /**
      * Activate the load button.

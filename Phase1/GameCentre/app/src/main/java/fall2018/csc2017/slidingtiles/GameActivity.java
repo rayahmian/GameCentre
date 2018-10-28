@@ -3,9 +3,11 @@ package fall2018.csc2017.slidingtiles;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,6 +45,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
+    private int score = 50;
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -59,6 +63,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
         loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_main);
+
+        TextView scoreTextView = (TextView) findViewById(R.id.textView9);
+        scoreTextView.setText("Score: " + (boardManager.getScore() + 1));
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
@@ -165,5 +172,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         display();
+        TextView scoreTextView = (TextView) findViewById(R.id.textView9);
+        scoreTextView.setText("Score: " + boardManager.getScore());
     }
 }
