@@ -35,11 +35,34 @@ public class StartingActivity extends AppCompatActivity {
      * The scoreboard.
      */
     private ScoreBoard scoreBoard;
+    /**
+     * The game complexity.
+     */
+    private int gameComplexity = 4;
+    /**
+     * Unique tag for settings intent reply.
+     */
+    public static final int COMPLEXITY_REQUEST = 1;
+
+    /**
+     * Get the game complexity.
+     */
+    public int getGameComplexity() {
+        return gameComplexity;
+    }
+
+    /**
+     * Set the game complexity.
+     */
+    public void setGameComplexity(int gameComplexity) {
+        this.gameComplexity = gameComplexity;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boardManager = new BoardManager(4, 4);
+        boardManager = new BoardManager(getGameComplexity(), getGameComplexity());
         scoreBoard = new ScoreBoard();
         saveToFile(TEMP_SAVE_FILENAME);
 
@@ -49,10 +72,37 @@ public class StartingActivity extends AppCompatActivity {
         addSaveButtonListener();
     }
 
-    /** Called when the user taps the scoreboard button. */
+    /**
+     * Called when the user taps the scoreboard button.
+     */
     public void scoreboardPressed(View view) {
         Intent intent = new Intent(this, ScoreBoardActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Called when the user taps the scoreboard button.
+     */
+    public void settingsPressed(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivityForResult(intent, COMPLEXITY_REQUEST);
+    }
+
+    /**
+     * Handles the data in the return intent from SettingsActivity.
+     *
+     * @param requestCode Code for the SecondActivity request.
+     * @param resultCode Code that comes back from SecondActivity.
+     * @param data Intent data sent back from SecondActivity.
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        setGameComplexity(Integer.parseInt(data.getStringExtra(SettingsActivity.EXTRA_REPLY)));
+        if (requestCode == COMPLEXITY_REQUEST && resultCode == RESULT_OK) {
+            setGameComplexity(Integer.parseInt(data.getStringExtra(SettingsActivity.EXTRA_REPLY)));
+        }
+
     }
 
     /**
@@ -63,7 +113,7 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager(4,4);
+                boardManager = new BoardManager(getGameComplexity(),getGameComplexity());
                 switchToGame();
             }
         });
