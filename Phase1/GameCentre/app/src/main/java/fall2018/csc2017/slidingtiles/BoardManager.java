@@ -1,5 +1,9 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,12 +14,17 @@ import java.util.List;
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
 class
-BoardManager implements Serializable {
+BoardManager extends AppCompatActivity implements Serializable, Score {
 
     /**
      * The board being managed.
      */
     private Board board;
+
+    /**
+     *  The players score.
+     */
+    private int score = 50;
 
     /**
      * Manage a board that has been pre-populated.
@@ -108,8 +117,22 @@ BoardManager implements Serializable {
                     int new_col = (i >= 2) ? (col - 1) + (2 * (i % 2)) : col;
                     board.swapTiles(row, col, new_row, new_col);
                 }
+            if (this.score > 1) {
+                this.score--;
+            }
+
+
         }
 
     }
 
+    @Override
+    public int getScore() {
+        return this.score - 1;
+    }
+
+    @Override
+    public void setScore(int score) {
+        this.score = score;
+    }
 }
