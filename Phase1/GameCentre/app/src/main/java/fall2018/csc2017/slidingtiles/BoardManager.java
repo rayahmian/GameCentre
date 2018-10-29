@@ -26,6 +26,8 @@ BoardManager extends AppCompatActivity implements Serializable, Score {
      */
     private int score = 50;
 
+    private ArrayList<Board> moves_list = new ArrayList<Board>();
+
     /**
      * Manage a board that has been pre-populated.
      *
@@ -33,6 +35,7 @@ BoardManager extends AppCompatActivity implements Serializable, Score {
      */
     BoardManager(Board board) {
         this.board = board;
+        moves_list.add(board);
     }
 
     /**
@@ -54,6 +57,12 @@ BoardManager extends AppCompatActivity implements Serializable, Score {
 
         Collections.shuffle(tiles);
         this.board = new Board(tiles, rows, cols);
+        moves_list.add(board);
+        // For testing the autosave load method
+//        Autosave autosaver = new Autosave();
+//        moves_list = autosaver.auto_loadFromFile();
+//        int len = moves_list.size() - 1;
+//        this.board = moves_list.get(len);
     }
 
     /**
@@ -116,6 +125,9 @@ BoardManager extends AppCompatActivity implements Serializable, Score {
                     int new_row = (i < 2) ? (row - 1) + (2 * i) : row;
                     int new_col = (i >= 2) ? (col - 1) + (2 * (i % 2)) : col;
                     board.swapTiles(row, col, new_row, new_col);
+                    moves_list.add(board);
+                    new Autosave(moves_list);
+
                 }
             if (this.score > 1) {
                 this.score--;
