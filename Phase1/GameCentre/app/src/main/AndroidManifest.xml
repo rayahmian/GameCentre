@@ -17,6 +17,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".GameActivity" />
+        <activity android:name=".SettingsActivity"
+            android:parentActivityName=".StartingActivity"
+            android:theme="@style/Theme.AppCompat.Light">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".StartingActivity" />
+        </activity>
         <activity android:name=".ScoreBoardActivity"
                   android:parentActivityName=".StartingActivity"
                   android:theme="@style/Theme.AppCompat.Light">
