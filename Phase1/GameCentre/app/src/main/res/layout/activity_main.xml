@@ -30,6 +30,26 @@
         android:layout_marginBottom="0dp"
         tools:context="fall2018.csc2017.slidingtiles.GameActivity"></fall2018.csc2017.slidingtiles.GestureDetectGridView>
 
+    <Button
+        android:id="@+id/SaveButtonGameScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView9"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-5dp"
+        android:layout_marginEnd="113dp"
+        android:background="@color/colorAccent"
+        android:text="@string/SaveText" />
+
+    <Button
+        android:id="@+id/UndoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/SaveButtonGameScreen"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/UndoText" />
 
 
 </RelativeLayout>

@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,6 +34,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * The buttons to display.
      */
     private ArrayList<Button> tileButtons;
+    /**
+     * The main save file.
+     */
+    public static final String SAVE_FILENAME = "save_file.ser";
+    /**
+     * A temporary save file.
+     */
+    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
 
     /**
      * Constants for swiping directions. Should be an enum, probably.
@@ -88,6 +98,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         display();
                     }
                 });
+        addSaveButtonListener();
     }
 
     /**
@@ -168,6 +179,26 @@ public class GameActivity extends AppCompatActivity implements Observer {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
+    /**
+     * Display that a game was saved successfully.
+     */
+    private void makeToastSavedText() {
+        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    private void addSaveButtonListener() {
+        Button saveButton = findViewById(R.id.SaveButtonGameScreen);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveToFile(SAVE_FILENAME);
+                saveToFile(TEMP_SAVE_FILENAME);
+                makeToastSavedText();
+            }
+        });
+    }
+
+
 
     @Override
     public void update(Observable o, Object arg) {

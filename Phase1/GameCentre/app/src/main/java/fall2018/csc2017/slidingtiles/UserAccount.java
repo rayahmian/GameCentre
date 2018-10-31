@@ -1,11 +1,16 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.util.Log;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class UserAccount implements Serializable {
 
-    private String password;
-    private String username;
+    private String username, password;
+
+    Board autoSavedGame, savedGame;
 
     UserAccount(String username, String password){
         this.username = username;
@@ -19,4 +24,6 @@ public class UserAccount implements Serializable {
     public String getUserName(){
         return this.username;
     }
+
+
 }

@@ -9,7 +9,8 @@ import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
 
-    String username, password;
+    static String username;
+    String password;
 
     EditText usernameInput;
     EditText passwordInput;
