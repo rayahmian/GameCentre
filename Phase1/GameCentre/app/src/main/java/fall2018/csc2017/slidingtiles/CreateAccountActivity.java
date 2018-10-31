@@ -6,15 +6,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.io.FileOutputStream;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
     String username, password;
-
+    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/userList.ser";
     EditText usernameInput;
     EditText passwordInput;
     Button play;
-
+    ArrayList<UserAccount> result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +43,29 @@ public class CreateAccountActivity extends AppCompatActivity {
                 username = usernameInput.getText().toString();
                 password = usernameInput.getText().toString();
                 UserAccount newUser = new UserAccount(username, password);
+                try {
+                    // read object from file
+                    FileInputStream fis = new FileInputStream(FILENAME);
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    result = (ArrayList<UserAccount>) ois.readObject();
+                    ois.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                result.add(newUser);
+                try {
+                    // write object to file
+                    FileOutputStream fos = new FileOutputStream(FILENAME);
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(result);
+                    oos.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
                 switchToChooseGameActivity();
             }
         });

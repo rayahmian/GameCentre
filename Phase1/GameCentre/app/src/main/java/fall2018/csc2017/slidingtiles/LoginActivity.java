@@ -5,8 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
+
+    String username, password;
+
+    EditText usernameInput;
+    EditText passwordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

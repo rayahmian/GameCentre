@@ -5,14 +5,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class AccountActivity extends AppCompatActivity {
 
+    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/userList.ser";
+    FileOutputStream fos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        try {
+            ArrayList<UserAccount> users = new ArrayList<>();
+            // write object to file
+            fos = new FileOutputStream(FILENAME);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(users);
+            oos.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
         addNewAccountButtonListener();
         addLoginButtonListener();
         addGuestButtonListener();
