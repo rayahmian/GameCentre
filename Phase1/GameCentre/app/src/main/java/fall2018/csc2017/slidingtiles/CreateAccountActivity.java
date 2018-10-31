@@ -18,7 +18,7 @@ import java.io.FileOutputStream;
 public class CreateAccountActivity extends AppCompatActivity {
 
     String username, password;
-    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/userList.ser";
+    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
     EditText usernameInput;
     EditText passwordInput;
     Button play;

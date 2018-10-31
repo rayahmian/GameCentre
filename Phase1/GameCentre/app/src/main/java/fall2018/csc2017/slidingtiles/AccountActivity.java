@@ -15,7 +15,7 @@ import java.io.ObjectOutputStream;
 
 public class AccountActivity extends AppCompatActivity {
 
-    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/userList.ser";
+    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
     FileOutputStream fos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
