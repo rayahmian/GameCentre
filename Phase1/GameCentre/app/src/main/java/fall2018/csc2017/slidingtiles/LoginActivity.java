@@ -11,7 +11,7 @@ public class LoginActivity extends AppCompatActivity {
 
     static String username;
     String password;
-
+    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
     EditText usernameInput;
     EditText passwordInput;
 
