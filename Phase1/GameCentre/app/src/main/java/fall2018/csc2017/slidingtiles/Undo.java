@@ -29,15 +29,15 @@ public class Undo {
     public get_last_move() {
         try {
             // Reading obj from file
-            FileInputStream finputStream = new FileInputStream(FILENAME);
-            ObjectInputStream inputStream = new ObjectInputSTream(FILE);
+            FileInputStream finputStream = new FileInputStream(filename);
+            ObjectInputStream oinputStream = new ObjectInputSTream(file);
             // Deserialize
             this.lastBoard = (Board)in.readObject();
             finputStream.close();
-            inputStream.close();
+            oinputStream.close();
         }
         catch (IOException e){
-            logger.error("File not found: " e.toString())
+            logger.error("File not found: " + e.toString())
         }
     }
 }
