@@ -10,16 +10,15 @@ import java.io.IOException;
 
 
 public class Undo {
-    /**The Undo functionality that allows the user to undo their last n moves.
-     * TO DO: add the undo button to the interface
-     */
+    // The Undo functionality that allows the user to undo their last n moves.
+    // TO DO: add the undo button to the interface
 
     private Board lastBoard = null;
 
     Undo() {
         get_last_move();
         if (lastBoard == null) {
-            // no undos are available
+            // no undo is available
             // notify
         }else {
             BoardManager(lastBoard);
@@ -39,7 +38,7 @@ public class Undo {
             file.close();
         }
         catch (IOException e){
-            // no undos are available
+            // no undo is available
         }
     }
 }
