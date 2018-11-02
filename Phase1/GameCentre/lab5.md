@@ -1,7 +1,7 @@
-## Game centre and menu where user can create account - Mags
-## Game complexity - Kosta
-## Autosave  - Chinmaya
-## Scoreboard - Thomas
-## Undo - Rayah
-
-# USER CLASS - UNKNOWN
+# To Do:
+* Game Centre and menu where user can create account - Mags
+* Game Complexity - Kosta
+* Autosave  - Chinmaya
+* Scoreboard - Thomas
+* Undo - Rayah
+* USER CLASS - UNKNOWN
