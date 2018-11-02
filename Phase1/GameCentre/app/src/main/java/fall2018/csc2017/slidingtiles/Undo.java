@@ -28,7 +28,7 @@ public class Undo {
             FileInputStream file = new FileInputStream(filename);
             ObjectInputStream in = new ObjectInputSTream(file);
 
-            // Deserializing
+            // Deserialize
             this.lastBoard = (Board)in.readObject();
 
             in.close();
@@ -42,7 +42,5 @@ public class Undo {
 
 
 class Test {
-    /** Test deserializing boards
-     *
-     */
+    /** Test to deserialize boards. */
 }
