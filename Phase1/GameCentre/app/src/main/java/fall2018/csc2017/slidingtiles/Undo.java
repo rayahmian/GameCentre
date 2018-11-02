@@ -5,6 +5,11 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class Undo implements Observer {
+    /** The Undo functionality that allows the user to undo their last n moves.
+     * The minimum number of moves a user is allowed to undo is 3.
+     * TO DO: try to allow the user to change the number of steps as a bonus
+     * TO DO: add the undo button to the userface
+     */
 
     /**
      * An empty list of the most recent moves.
