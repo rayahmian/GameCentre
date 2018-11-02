@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging;
 
 
 public class Undo {
@@ -28,17 +29,15 @@ public class Undo {
     public get_last_move() {
         try {
             // Reading obj from file
-            FileInputStream file = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputSTream(file);
-
+            FileInputStream finputStream = new FileInputStream(FILENAME);
+            ObjectInputStream inputStream = new ObjectInputSTream(FILE);
             // Deserialize
             this.lastBoard = (Board)in.readObject();
-
-            in.close();
-            file.close();
+            finputStream.close();
+            inputStream.close();
         }
         catch (IOException e){
-            // no undo is available
+            logger.error("File not found: " e.toString())
         }
     }
 }
