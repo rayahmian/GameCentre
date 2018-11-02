@@ -7,7 +7,7 @@ import java.util.Observer;
 public class Undo implements Observer {
 
     /**
-     * A list of the most recent moves.
+     * An empty list of the most recent moves.
      */
     private ArrayList<Board> moves = new ArrayList<>(3);
 
