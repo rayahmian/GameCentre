@@ -10,16 +10,20 @@ import java.io.IOException;
 
 
 public class Undo {
-    /** The Undo functionality that allows the user to undo their last n moves.
-     * The minimum number of moves a user is allowed to undo is 3.
-     * TO DO: try to allow the user to change the number of steps as a bonus
+    /**The Undo functionality that allows the user to undo their last n moves.
      * TO DO: add the undo button to the interface
      */
 
     private Board lastBoard = null;
 
     Undo() {
-        // @TODO
+        get_last_move();
+        if (lastBoard == null) {
+            // no undos are available
+            // notify
+        }else {
+            BoardManager(lastBoard);
+        }
     }
 
     public get_last_move() {
@@ -35,12 +39,8 @@ public class Undo {
             file.close();
         }
         catch (IOException e){
-            Log.e("Exception", "No previous moves available: " + e.toString());
+            // no undos are available
         }
     }
 }
 
-
-class Test {
-    /** Test to deserialize boards. */
-}
