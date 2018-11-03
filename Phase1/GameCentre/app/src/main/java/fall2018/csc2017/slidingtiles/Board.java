@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * The sliding tiles board.
  */
-public class Board extends Observable implements Serializable, Iterable<Tile> {
+public class Board extends Observable implements Serializable, Iterable<Tile>, Score {
 
     /**
      * The number of rows.
@@ -28,6 +28,11 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * The tiles on the board in row-major order.
      */
     private Tile[][] tiles;
+
+    /**
+     *  The players score.
+     */
+    private int score = 50;
 
     /**
      * A new board of tiles in row-major order.
@@ -80,6 +85,10 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         Tile temp = getTile(row1, col1);
         tiles[row1][col1] = getTile(row2, col2);
         tiles[row2][col2] = temp;
+
+        if (this.score > 1) {
+            this.score--;
+        }
 
         setChanged();
         notifyObservers();
@@ -152,5 +161,15 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
             nextIndex++;
             return result;
         }
+    }
+
+    @Override
+    public int getScore() {
+        return this.score;
+    }
+
+    @Override
+    public void setScore(int score) {
+        this.score = score;
     }
 }

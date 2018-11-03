@@ -55,8 +55,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
-    private int score = 50;
-
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -75,7 +73,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_main);
 
         TextView scoreTextView = (TextView) findViewById(R.id.textView9);
-        scoreTextView.setText("Score: " + (boardManager.getScore() + 1));
+        scoreTextView.setText("Score: " + (boardManager.getBoard().getScore()));
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
@@ -204,6 +202,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     public void update(Observable o, Object arg) {
         display();
         TextView scoreTextView = (TextView) findViewById(R.id.textView9);
-        scoreTextView.setText("Score: " + boardManager.getScore());
+        scoreTextView.setText("Score: " + boardManager.getBoard().getScore());
     }
 }

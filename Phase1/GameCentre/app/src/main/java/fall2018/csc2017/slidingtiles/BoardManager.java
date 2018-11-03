@@ -14,17 +14,12 @@ import java.util.List;
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
 class
-BoardManager extends AppCompatActivity implements Serializable, Score {
+BoardManager extends AppCompatActivity implements Serializable {
 
     /**
      * The board being managed.
      */
     private Board board;
-
-    /**
-     *  The players score.
-     */
-    private int score = 50;
 
     private ArrayList<Board> moves_list = new ArrayList<Board>();
 
@@ -129,22 +124,7 @@ BoardManager extends AppCompatActivity implements Serializable, Score {
                     new Autosave(moves_list);
 
                 }
-            if (this.score > 1) {
-                this.score--;
-            }
-
-
         }
 
-    }
-
-    @Override
-    public int getScore() {
-        return this.score - 1;
-    }
-
-    @Override
-    public void setScore(int score) {
-        this.score = score;
     }
 }
