@@ -32,10 +32,6 @@ public class StartingActivity extends AppCompatActivity {
      */
     private BoardManager boardManager;
     /**
-     * The scoreboard.
-     */
-    private ScoreBoard scoreBoard;
-    /**
      * The game complexity.
      */
     private int gameComplexity = 4;
@@ -63,7 +59,6 @@ public class StartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         boardManager = new BoardManager(getGameComplexity(), getGameComplexity());
-        scoreBoard = new ScoreBoard();
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
