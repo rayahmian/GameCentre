@@ -10,6 +10,11 @@ public class UserAccount implements Serializable {
 
     private String username, password;
 
+    /**
+     * The users highest score achieved
+     */
+    private int maxScore = 0;
+
     Board autoSavedGame, savedGame;
 
     UserAccount(String username, String password){
@@ -23,6 +28,22 @@ public class UserAccount implements Serializable {
 
     public String getUserName(){
         return this.username;
+    }
+
+    /**
+     * Get the users max score
+     * @return the max score.
+     */
+    public int getMaxScore(){
+        return this.maxScore;
+    }
+
+    /**
+     * Set the users max score to score
+     * @param score The new maxScore.
+     */
+    public void setMaxScore(int score) {
+        this.maxScore = score;
     }
 
 
