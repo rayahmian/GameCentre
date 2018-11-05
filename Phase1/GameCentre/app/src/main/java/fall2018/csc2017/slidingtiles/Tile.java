@@ -59,6 +59,7 @@ Tile implements Comparable<Tile>, Serializable {
      *
      * @param backgroundId
      * @param size
+     *
      */
     public Tile(int backgroundId, int size) {
         this.SIZE = size;
@@ -111,7 +112,7 @@ Tile implements Comparable<Tile>, Serializable {
             case 15:
                 background = R.drawable.tile_15;
                 break;
- /*           case 16:
+            case 16:
                 background = R.drawable.tile_16;
                 break;
             case 17:
@@ -141,7 +142,7 @@ Tile implements Comparable<Tile>, Serializable {
             case 25:
                 background = R.drawable.tile_25;
                 break;
- */           default:
+            default:
                 background = R.drawable.tile_0;
         }
         if ( id == SIZE * SIZE)
