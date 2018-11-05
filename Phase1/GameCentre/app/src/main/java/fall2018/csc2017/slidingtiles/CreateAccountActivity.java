@@ -14,6 +14,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -22,7 +24,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     EditText usernameInput;
     EditText passwordInput;
     Button play;
-    ArrayList<UserAccount> result;
+    Map<String, UserAccount> result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     // read object from file
                     FileInputStream fis = new FileInputStream(FILENAME);
                     ObjectInputStream ois = new ObjectInputStream(fis);
-                    result = (ArrayList<UserAccount>) ois.readObject();
+                    result = (Map<String, UserAccount>) ois.readObject();
                     ois.close();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -56,7 +58,9 @@ public class CreateAccountActivity extends AppCompatActivity {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                result.add(newUser);
+                if(!(result.containsKey(username))) {
+                    result.put(username, newUser);
+                }
                 try {
                     // write object to file
                     FileOutputStream fos = new FileOutputStream(FILENAME);
