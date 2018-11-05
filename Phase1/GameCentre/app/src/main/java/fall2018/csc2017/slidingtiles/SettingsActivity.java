@@ -16,47 +16,41 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
     }
+    /**
+     * Called when the user taps a button to change complexity.
+     *
+     * @param complexity integer representing the complexity of game wanted (i.e. 3 => "3x3")
+     */
+    public void buttonComplexityPressed(int complexity) {
+        String size = Integer.toString(complexity);
+        Intent replyIntent = new Intent();
+        replyIntent.putExtra(EXTRA_REPLY, size);
+        setResult(RESULT_OK, replyIntent);
+
+        String message = String.format("Game complexity has been set to %sx%s", size, size);
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
     /**
      * Called when the user taps the 3x3 button.
      */
     public void button3x3Pressed(View view) {
-        Intent replyIntent = new Intent();
-        replyIntent.putExtra(EXTRA_REPLY, "3");
-        setResult(RESULT_OK, replyIntent);
-
-        String message = "Game complexity has been set to 3x3";
-        Toast toast = Toast.makeText(this, message,
-                Toast.LENGTH_SHORT);
-        toast.show();
+        buttonComplexityPressed(3);
     }
 
     /**
      * Called when the user taps the 4x4 button.
      */
     public void button4x4Pressed(View view) {
-        Intent replyIntent = new Intent();
-        replyIntent.putExtra(EXTRA_REPLY, "4");
-        setResult(RESULT_OK, replyIntent);
-
-        String message = "Game complexity has been set to 4x4";
-        Toast toast = Toast.makeText(this, message,
-                Toast.LENGTH_SHORT);
-        toast.show();
+        buttonComplexityPressed(4);
     }
 
     /**
      * Called when the user taps the 5x5 button.
      */
     public void button5x5Pressed(View view) {
-        Intent replyIntent = new Intent();
-        replyIntent.putExtra(EXTRA_REPLY, "5");
-        setResult(RESULT_OK, replyIntent);
-
-        String message = "Game complexity has been set to 5x5";
-        Toast toast = Toast.makeText(this, message,
-                Toast.LENGTH_SHORT);
-        toast.show();
+        buttonComplexityPressed(5);
     }
 
 }

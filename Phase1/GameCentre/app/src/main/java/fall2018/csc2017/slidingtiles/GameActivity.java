@@ -73,7 +73,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_main);
 
         TextView scoreTextView = (TextView) findViewById(R.id.textView9);
-        scoreTextView.setText("Score: " + (boardManager.getBoard().getScore()));
+        String newScore = "Score: " + (boardManager.getBoard().getScore());
+        scoreTextView.setText(newScore);
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
@@ -202,6 +203,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     public void update(Observable o, Object arg) {
         display();
         TextView scoreTextView = (TextView) findViewById(R.id.textView9);
-        scoreTextView.setText("Score: " + boardManager.getBoard().getScore());
+        String newScore = "Score: " + boardManager.getBoard().getScore();
+        scoreTextView.setText(newScore);
     }
 }
