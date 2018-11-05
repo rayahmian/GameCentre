@@ -23,10 +23,12 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     String username, password;
     public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
+    public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
     EditText usernameInput;
     EditText passwordInput;
     Button createAccount;
     Map<String, UserAccount> result;
+    UserAccount user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,17 +50,17 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     /**
-     * Activate the ChooseGameActivity button.
+     * Activate the CreateAccountActivity button.
      */
     private void addCreateAccountActivityButtonListener() {
-        createAccount = findViewById(R.id.play);
+        createAccount = findViewById(R.id.createAccount);
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 usernameInput = (EditText) findViewById(R.id.usernameText);
                 passwordInput = (EditText) findViewById(R.id.passwordText);
                 username = usernameInput.getText().toString();
-                password = usernameInput.getText().toString();
+                password = passwordInput.getText().toString();
                 UserAccount newUser = new UserAccount(username, password);
 
                 if(result.containsKey(username)){
@@ -70,6 +72,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
                 if(!(result.containsKey(username))) {
                     result.put(username, newUser);
+                    user = newUser;
                     try {
                         // write object to file
                         FileOutputStream fos = new FileOutputStream(FILENAME);
@@ -92,6 +95,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
     private void switchToChooseGameActivity() {
         Intent tmp = new Intent(this, ChooseGameActivity.class);
+        tmp.putExtra(EXTRA_MESSAGE, user);
         startActivity(tmp);
     }
 }

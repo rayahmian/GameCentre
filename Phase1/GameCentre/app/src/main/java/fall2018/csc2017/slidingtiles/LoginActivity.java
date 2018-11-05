@@ -21,10 +21,12 @@ public class LoginActivity extends AppCompatActivity {
 
     String username, password;
     public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
+    public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
     EditText usernameInput;
     EditText passwordInput;
     Button signIn;
     Map<String, UserAccount> result;
+    UserAccount user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +49,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Activate the ChooseGameActivity button.
+     * Activate the SignInActivity button.
      */
     private void addSignInButtonListener() {
-        signIn = findViewById(R.id.SignIn);
+        signIn = findViewById(R.id.signIn);
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 usernameInput = (EditText) findViewById(R.id.usernameText);
                 passwordInput = (EditText) findViewById(R.id.passwordText);
                 username = usernameInput.getText().toString();
-                password = usernameInput.getText().toString();
+                password = passwordInput.getText().toString();
 
                 if(!(result.containsKey(username) && result.get(username).checkPassword(password))) {
                     String message = "Incorrect username or password";
@@ -66,7 +68,8 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT);
                     toast.show();
                 }
-                if(result.containsKey(username) && result.containsKey(username)) {
+                if (result.containsKey(username) && result.get(username).checkPassword(password)) {
+                    user = result.get(username);
                     String message = "Sign In Successful";
                     Toast toast = Toast.makeText(getApplicationContext(),
                             message,
@@ -77,11 +80,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
             }
-        }
-        );
+        });
     }
     private void switchToChooseGameActivity() {
         Intent tmp = new Intent(this, ChooseGameActivity.class);
+        tmp.putExtra(EXTRA_MESSAGE, user);
         startActivity(tmp);
     }
 }

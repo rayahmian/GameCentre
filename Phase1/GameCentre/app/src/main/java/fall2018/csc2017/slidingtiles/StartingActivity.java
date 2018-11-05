@@ -39,7 +39,7 @@ public class StartingActivity extends AppCompatActivity {
      * Unique tag for settings intent reply.
      */
     public static final int COMPLEXITY_REQUEST = 1;
-
+    private UserAccount user;
     /**
      * Get the game complexity.
      */
@@ -60,6 +60,8 @@ public class StartingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         boardManager = new BoardManager(getGameComplexity(), getGameComplexity());
         saveToFile(TEMP_SAVE_FILENAME);
+        Intent intent = getIntent();
+        user = (UserAccount) intent.getSerializableExtra(CreateAccountActivity.EXTRA_MESSAGE);
 
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -93,7 +95,6 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        setGameComplexity(Integer.parseInt(data.getStringExtra(SettingsActivity.EXTRA_REPLY)));
         if (requestCode == COMPLEXITY_REQUEST && resultCode == RESULT_OK) {
             setGameComplexity(Integer.parseInt(data.getStringExtra(SettingsActivity.EXTRA_REPLY)));
         }
