@@ -18,17 +18,47 @@ import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Create a new account.
+ */
 public class CreateAccountActivity extends AppCompatActivity {
-
-    String username, password;
+    /**
+     * The entered username.
+     */
+    String username;
+    /**
+     * The entered password.
+     */
+    String password;
+    /**
+     * The main save file with all user information.
+     */
     public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
-    public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
+    /**
+     * The username text field.
+     */
     EditText usernameInput;
+    /**
+     * The password text field.
+     */
     EditText passwordInput;
+    /**
+     * The Create Account button.
+     */
     Button createAccount;
+    /**
+     * Key-values pairs of usernames and their associated UserAccount objects
+     */
     Map<String, UserAccount> result;
+    /**
+     * The current logged in user.
+     */
     UserAccount user;
+    /**
+     * Unique tag required for the intent extra.
+     */
+    public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

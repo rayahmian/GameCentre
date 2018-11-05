@@ -13,15 +13,14 @@ import java.util.List;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-class
-BoardManager extends AppCompatActivity implements Serializable {
+class BoardManager extends AppCompatActivity implements Serializable {
 
     /**
      * The board being managed.
      */
     private Board board;
 
-    private ArrayList<Board> moves_list = new ArrayList<Board>();
+    private ArrayList<Board> moves_list = new ArrayList<>();
 
     /**
      * Manage a board that has been pre-populated.
@@ -53,11 +52,6 @@ BoardManager extends AppCompatActivity implements Serializable {
         Collections.shuffle(tiles);
         this.board = new Board(tiles, rows, cols);
         moves_list.add(board);
-        // For testing the autosave load method
-//        Autosave autosaver = new Autosave();
-//        moves_list = autosaver.auto_loadFromFile();
-//        int len = moves_list.size() - 1;
-//        this.board = moves_list.get(len);
     }
 
     /**
