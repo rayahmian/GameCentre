@@ -26,7 +26,7 @@ public class UserAccount implements Serializable {
         return this.password.equals(input);
     }
 
-    public String getUserName(){
+    public String getUsername(){
         return this.username;
     }
 
