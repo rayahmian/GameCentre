@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,21 +25,34 @@ public class CreateAccountActivity extends AppCompatActivity {
     public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
     EditText usernameInput;
     EditText passwordInput;
-    Button play;
+    Button createAccount;
     Map<String, UserAccount> result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-        addChooseGameActivityButtonListener();
+        try {
+            // read object from file
+            FileInputStream fis = new FileInputStream(FILENAME);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            result = (Map<String, UserAccount>) ois.readObject();
+            ois.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        addCreateAccountActivityButtonListener();
     }
 
     /**
      * Activate the ChooseGameActivity button.
      */
-    private void addChooseGameActivityButtonListener() {
-        play = findViewById(R.id.play);
-        play.setOnClickListener(new View.OnClickListener() {
+    private void addCreateAccountActivityButtonListener() {
+        createAccount = findViewById(R.id.play);
+        createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 usernameInput = (EditText) findViewById(R.id.usernameText);
@@ -45,32 +60,33 @@ public class CreateAccountActivity extends AppCompatActivity {
                 username = usernameInput.getText().toString();
                 password = usernameInput.getText().toString();
                 UserAccount newUser = new UserAccount(username, password);
-                try {
-                    // read object from file
-                    FileInputStream fis = new FileInputStream(FILENAME);
-                    ObjectInputStream ois = new ObjectInputStream(fis);
-                    result = (Map<String, UserAccount>) ois.readObject();
-                    ois.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+
+                if(result.containsKey(username)){
+                    String message = "Username not available";
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            message,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
                 }
                 if(!(result.containsKey(username))) {
                     result.put(username, newUser);
+                    try {
+                        // write object to file
+                        FileOutputStream fos = new FileOutputStream(FILENAME);
+                        ObjectOutputStream oos = new ObjectOutputStream(fos);
+                        oos.writeObject(result);
+                        oos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String message = "Account Creation Successful";
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            message,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
+                    switchToChooseGameActivity();
                 }
-                try {
-                    // write object to file
-                    FileOutputStream fos = new FileOutputStream(FILENAME);
-                    ObjectOutputStream oos = new ObjectOutputStream(fos);
-                    oos.writeObject(result);
-                    oos.close();
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-                switchToChooseGameActivity();
             }
         });
     }
