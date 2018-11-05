@@ -7,12 +7,15 @@ import android.view.View;
 import android.widget.Button;
 
 public class ChooseGameActivity extends AppCompatActivity {
+    UserAccount user;
+    public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_game);
-
+        Intent intent = getIntent();
+        user = (UserAccount) intent.getSerializableExtra(CreateAccountActivity.EXTRA_MESSAGE);
         addSlidingTilesButtonListener();
     }
 
@@ -34,6 +37,7 @@ public class ChooseGameActivity extends AppCompatActivity {
      */
     private void switchToSlidingTiles() {
         Intent tmp = new Intent(this, StartingActivity.class);
+        tmp.putExtra(EXTRA_MESSAGE, user);
         startActivity(tmp);
     }
 }
