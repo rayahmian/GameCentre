@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -95,7 +97,7 @@ public class AccountActivity extends AppCompatActivity {
      */
     private void switchToCreateAccount() {
         Intent tmp = new Intent(this, CreateAccountActivity.class);
-        startActivity(tmp);
+        startActivityForResult(tmp, 0);
     }
 
     /**
@@ -103,7 +105,7 @@ public class AccountActivity extends AppCompatActivity {
      */
     private void switchToLogin() {
         Intent tmp = new Intent(this, LoginActivity.class);
-        startActivity(tmp);
+        startActivityForResult(tmp, 0);
     }
 
     /**
@@ -112,5 +114,23 @@ public class AccountActivity extends AppCompatActivity {
     private void switchToGuest() {
         Intent tmp = new Intent(this, ChooseGameActivity.class);
         startActivity(tmp);
+    }
+
+    /**
+     * Handles the data in the return intent from any latter activities.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == RESULT_OK) {
+            String message = "Logged Out";
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    message,
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }

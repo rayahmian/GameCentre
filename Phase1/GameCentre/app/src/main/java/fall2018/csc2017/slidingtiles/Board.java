@@ -95,6 +95,29 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, S
     }
 
     /**
+     * Swap tiles list with newTiles for the undo functionality.
+     *
+     * @param newTiles the new array of tiles to swap
+     */
+    void swapTileList(Tile[][] newTiles) {
+        this.tiles = newTiles;
+
+        if (this.score > 1){
+            this.score++;
+        }
+
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * Return the array of Tile tiles.
+     *
+     * @return the array of Tile tiles.
+     */
+    Tile[][] getArrayTiles(){return tiles;}
+
+    /**
      * Return the number of rows.
      *
      * @return the number of rows

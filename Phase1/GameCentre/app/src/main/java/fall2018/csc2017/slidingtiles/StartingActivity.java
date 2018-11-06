@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
@@ -42,9 +43,21 @@ public class StartingActivity extends AppCompatActivity {
      * Unique tag for settings intent reply.
      */
     public static final int COMPLEXITY_REQUEST = 1;
-    public UserAccount user;
+    /**
+     * The current logged in user.
+     */
+    UserAccount user;
+    /**
+     * Unique tag required for the intent extra.
+     */
     public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
+    /**
+     * Key-value pairs of username's and the corresponding UserAccount object.
+     */
     Map<String, UserAccount> result;
+    /**
+     * Location of the account activity data.
+     */
     public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
     /**
      * Get the game complexity.
@@ -64,6 +77,8 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_starting_);
+
         boardManager = new BoardManager(getGameComplexity(), getGameComplexity());
         saveToFile(TEMP_SAVE_FILENAME);
         Intent intent = getIntent();

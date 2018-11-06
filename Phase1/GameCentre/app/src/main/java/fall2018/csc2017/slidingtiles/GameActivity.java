@@ -113,6 +113,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
                     }
                 });
         addSaveButtonListener();
+        addUndoButtonListener();
     }
 
     /**
@@ -236,7 +237,25 @@ public class GameActivity extends AppCompatActivity implements Observer {
         });
     }
 
+    /**
+     * Display that the user cannot undo from the current game state.
+     */
+    private void makeToastNoUndoText() {
+        Toast.makeText(this, "Can't Undo", Toast.LENGTH_SHORT).show();
+    }
 
+    private void addUndoButtonListener() {
+        Button undoButton = findViewById(R.id.UndoButton);
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Undo undo = new Undo();
+                if (!undo.canUndo()) {
+                    makeToastNoUndoText();
+                }
+            }
+        });
+    }
 
     @Override
     public void update(Observable o, Object arg) {

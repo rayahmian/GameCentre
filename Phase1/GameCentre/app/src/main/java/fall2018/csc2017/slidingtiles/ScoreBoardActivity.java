@@ -85,6 +85,11 @@ public class ScoreBoardActivity extends AppCompatActivity {
         personalBest.setText("Personal Best: " + userMaxScore);
     }
 
+    /**
+     * Return the best scores across all accounts
+     *
+     * @param userAccounts map containing all users and their data
+     */
     public void getMaxScores(Map<String, UserAccount> userAccounts) {
         for (Map.Entry<String, UserAccount> x: userAccounts.entrySet()
                 ) {
@@ -108,6 +113,9 @@ public class ScoreBoardActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Create the scoreboard table.
+     */
     public void setScoreboardTable() {
         TableLayout scoreboardTable = (TableLayout) findViewById(R.id.scoreboardTable);
 
