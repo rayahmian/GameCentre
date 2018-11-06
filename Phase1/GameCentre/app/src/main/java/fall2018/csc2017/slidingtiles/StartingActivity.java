@@ -145,34 +145,33 @@ public class StartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(user==null) {
+                if(user == null) {
                     loadFromFile(SAVE_FILENAME);
                     saveToFile(TEMP_SAVE_FILENAME);
                     makeToastLoadedText();
-                }
-                try {
-                    // read object from file
-                    FileInputStream fis = new FileInputStream(FILENAME);
-                    ObjectInputStream ois = new ObjectInputStream(fis);
-                    result = (Map<String, UserAccount>) ois.readObject();
-                    ois.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                user = result.get(user.getUsername());
-                if(user.savedGame==null) {
-                    boardManager = new BoardManager(getGameComplexity(), getGameComplexity());
-                }
-                else {
+                } else {
+                    try {
+                        // read object from file
+                        FileInputStream fis = new FileInputStream(FILENAME);
+                        ObjectInputStream ois = new ObjectInputStream(fis);
+                        result = (Map<String, UserAccount>) ois.readObject();
+                        ois.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     user = result.get(user.getUsername());
-                    boardManager = user.savedGame;
-                    saveToFile(SAVE_FILENAME);
-                    saveToFile(TEMP_SAVE_FILENAME);
-                    makeToastLoadedText();
+                    if (user.savedGame == null) {
+                        boardManager = new BoardManager(getGameComplexity(), getGameComplexity());
+                    } else {
+                        boardManager = user.savedGame;
+                        saveToFile(SAVE_FILENAME);
+                        saveToFile(TEMP_SAVE_FILENAME);
+                        makeToastLoadedText();
+                    }
                 }
                 switchToGame();
             }
