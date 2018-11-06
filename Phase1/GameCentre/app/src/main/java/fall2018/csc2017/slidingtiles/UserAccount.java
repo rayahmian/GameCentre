@@ -24,11 +24,12 @@ public class UserAccount implements Serializable {
     /**
      * The user's last saved game.
      */
-    Board savedGame;
+    BoardManager savedGame;
 
     UserAccount(String username, String password){
         this.username = username;
         this.password = password;
+        this.savedGame = null;
     }
     /**
      * Return if the password input matches the user's password.
