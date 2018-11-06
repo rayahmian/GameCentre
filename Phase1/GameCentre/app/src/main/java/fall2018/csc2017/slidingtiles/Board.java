@@ -54,6 +54,20 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, S
     }
 
     /**
+     * A new board of tiles in row-major order.
+     * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
+     *
+     * @param tiles the tiles for the board
+     */
+    Board(Tile[][] tiles, int rows, int columns) {
+        NUM_ROWS = rows;
+        NUM_COLS = columns;
+        this.tiles = tiles;
+    }
+
+
+
+    /**
      * Return the number of tiles on the board.
      *
      * @return the number of tiles on the board

@@ -79,6 +79,13 @@ class BoardManager extends AppCompatActivity implements Serializable {
         this.board = moves_list.get(moves_list.size() - 1);
     }
 
+    /**
+     * Remove the current board from moves_list.
+     * Consequently, change board to the last board.
+     */
+    void setMovesList(ArrayList<Board> moves){
+        moves_list = moves;
+    }
 
     /**
      * Return whether any of the four surrounding tiles is the blank tile.

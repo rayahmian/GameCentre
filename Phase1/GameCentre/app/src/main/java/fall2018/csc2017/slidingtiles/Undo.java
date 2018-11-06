@@ -32,15 +32,18 @@ public class Undo {
      */
     private ArrayList<Board> boards;
 
-    private static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/Undo.ser";
+    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AutoSave.ser";
 
     Undo() {
         store_last_move();
-        if (canUndo()) {
-            BoardManager boardManager = new BoardManager(currentBoard);
+        if(canUndo()){
+            Board newBoard = new Board(lastBoard.getArrayTiles(), lastBoard.getNUM_ROWS(), lastBoard.getNUM_COLS());
+            BoardManager boardManager = new BoardManager(newBoard);
+            boardManager.setMovesList(boards);
             Tile[][] lastMove = lastBoard.getArrayTiles();
             boardManager.removeMove();
             boardManager.getBoard().swapTileList(lastMove);
+
         }
     }
 
@@ -49,27 +52,23 @@ public class Undo {
      */
     private void store_last_move() {
         try {
-            // Reading obj from file
-            FileInputStream fis = new FileInputStream(FILENAME);
-            BufferedInputStream bis = new BufferedInputStream(fis);
-            ObjectInputStream ois = new ObjectInputStream(bis);
-
-            // Deserialize
-            this.boards = (ArrayList<Board>) ois.readObject();
-            if (this.boards.size() >= 2) {
-                currentBoard = this.boards.get(this.boards.size() - 1);
-                lastBoard = this.boards.get(this.boards.size() - 2);
-            }
-            fis.close();
-            bis.close();
-            ois.close();
-
-        } catch(FileNotFoundException ex) {
-            Log.e("undo activity", "File not found: " + ex.toString());
-        } catch (IOException ex){
-            Log.e("undo activity", "Cannot read file: " + ex.toString());
-        } catch (ClassNotFoundException ex){
-            Log.e("undo activity", "File contained unexpected data type: " + ex.toString());
+            FileInputStream var2 = new FileInputStream(FILENAME);
+            BufferedInputStream var3 = new BufferedInputStream(var2);
+            ObjectInputStream var4 = new ObjectInputStream(var3);
+            boards = (ArrayList<Board>) var4.readObject();
+            var4.close();
+            System.out.println("Loading");
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+        if(canUndo()){
+            System.out.println("Can Undo");
+            currentBoard = boards.get(boards.size() - 1);
+            lastBoard = boards.get(boards.size() - 2);
         }
     }
 
@@ -77,6 +76,8 @@ public class Undo {
      * Return if there is a valid undo available.
      * @return boolean
      */
-    public boolean canUndo() { return this.boards.size() >= 2; }
+    public boolean canUndo() {
+        return this.boards != null && this.boards.size() >= 2;
+    }
 
 }
