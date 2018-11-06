@@ -46,11 +46,17 @@ public class Autosave extends Activity {
      */
     public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AutoSave.ser";
 
+    /**
+     * Auto save a movesList that has been passed in.
+     */
     Autosave(ArrayList<Board> moves){
         this.movesList = moves;
         autosaveToFile();
     }
 
+    /**
+     * Auto save a new empty movesList if a movesList hasn't been passed in.
+     */
     Autosave(){
         this.movesList = new ArrayList<>();
         autosaveToFile();
