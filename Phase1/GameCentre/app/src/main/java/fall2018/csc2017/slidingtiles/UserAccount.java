@@ -14,12 +14,12 @@ public class UserAccount implements Serializable {
      * The users highest score achieved
      */
     private int maxScore = 0;
-
-    Board autoSavedGame, savedGame;
+    public BoardManager savedGame;
 
     UserAccount(String username, String password){
         this.username = username;
         this.password = password;
+        this.savedGame = null;
     }
 
     public boolean checkPassword(String input){
@@ -45,6 +45,5 @@ public class UserAccount implements Serializable {
     public void setMaxScore(int score) {
         this.maxScore = score;
     }
-
 
 }
