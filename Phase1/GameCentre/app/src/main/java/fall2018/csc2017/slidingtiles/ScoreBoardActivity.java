@@ -95,6 +95,10 @@ public class ScoreBoardActivity extends AppCompatActivity {
 
             while (i < 5 && !scoreHigher) {
                 if (maxUsers[i] == null | score > maxScores[i]) {
+                    for (int j = 3; j >= i; j--) {
+                        maxUsers[j+1] = maxUsers[j];
+                        maxScores[j+1] = maxScores[j];
+                    }
                     maxScores[i] = score;
                     maxUsers[i] = name;
                     scoreHigher = true;
