@@ -6,8 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Choose which game you want to play.
+ */
 public class ChooseGameActivity extends AppCompatActivity {
+    /**
+     * The current logged in user.
+     */
     UserAccount user;
+    /**
+     * Unique tag required for the intent extra.
+     */
     public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
 
     @Override

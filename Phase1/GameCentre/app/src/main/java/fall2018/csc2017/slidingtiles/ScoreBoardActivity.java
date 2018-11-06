@@ -6,6 +6,10 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
+
+/**
+ * Display high scores.
+ */
 public class ScoreBoardActivity extends AppCompatActivity {
 
     /**

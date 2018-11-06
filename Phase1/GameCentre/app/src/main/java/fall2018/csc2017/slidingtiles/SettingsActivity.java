@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
-
+/**
+ * Allows user to change game complexity.
+ */
 public class SettingsActivity extends AppCompatActivity {
-
-    // Unique tag for the intent reply.
+    /**
+     * Unique tag for intent reply.
+     */
     public static final String EXTRA_REPLY = "fall2018.csc2017.slidingtiles.extra.reply";
 
     @Override

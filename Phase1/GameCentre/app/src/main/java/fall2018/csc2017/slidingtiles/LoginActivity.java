@@ -16,35 +16,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-public class LoginActivity extends AppCompatActivity {
-
-    String username, password;
-    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
-    public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
-    EditText usernameInput;
-    EditText passwordInput;
+/**
+ * Log into an already existing account.
+ */
+public class LoginActivity extends AccountManagementActivity {
+    /**
+     * The Sign In button.
+     */
     Button signIn;
-    Map<String, UserAccount> result;
-    UserAccount user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        try {
-            // read object from file
-            FileInputStream fis = new FileInputStream(FILENAME);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            result = (Map<String, UserAccount>) ois.readObject();
-            ois.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         addSignInButtonListener();
     }
 
@@ -82,9 +66,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void switchToChooseGameActivity() {
-        Intent tmp = new Intent(this, ChooseGameActivity.class);
-        tmp.putExtra(EXTRA_MESSAGE, user);
-        startActivity(tmp);
-    }
+
 }

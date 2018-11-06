@@ -15,10 +15,21 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The initial activity for the sliding puzzle tile app.
+ */
+
 public class AccountActivity extends AppCompatActivity {
 
+    /**
+     * The main save file with all user information.
+     */
     public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
+    /**
+     * Used when writing changes to user information save file.
+     */
     FileOutputStream fos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
