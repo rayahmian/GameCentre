@@ -13,8 +13,7 @@ import java.util.List;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-class
-BoardManager extends AppCompatActivity implements Serializable {
+class BoardManager extends AppCompatActivity implements Serializable {
 
     /**
      * The board being managed.
@@ -54,10 +53,10 @@ BoardManager extends AppCompatActivity implements Serializable {
         this.board = new Board(tiles, rows, cols);
         moves_list.add(board);
         // For testing the autosave load method
-//        Autosave autosaver = new Autosave();
-//        moves_list = autosaver.auto_loadFromFile();
-//        int len = moves_list.size() - 1;
-//        this.board = moves_list.get(len);
+        // Autosave autosaver = new Autosave();
+        // moves_list = autosaver.auto_loadFromFile();
+        // int len = moves_list.size() - 1;
+        // this.board = moves_list.get(len);
     }
 
     /**
@@ -74,6 +73,11 @@ BoardManager extends AppCompatActivity implements Serializable {
             correct++;
         }
         return solved;
+    }
+
+    void removeMove() {
+        moves_list.remove(moves_list.size() - 1);
+        this.board = moves_list.get(moves_list.size() - 1);
     }
 
     /**
