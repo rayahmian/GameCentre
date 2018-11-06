@@ -56,6 +56,10 @@ public abstract class AccountManagementActivity extends AppCompatActivity{
      * Unique tag required for the intent extra.
      */
     public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
+    /**
+     * Unique tag for intent reply.
+     */
+    public static final String EXTRA_REPLY = "fall2018.csc2017.slidingtiles.extra.reply";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

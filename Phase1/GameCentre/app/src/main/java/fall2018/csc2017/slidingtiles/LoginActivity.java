@@ -29,6 +29,11 @@ public class LoginActivity extends AccountManagementActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Intent replyIntent = new Intent();
+        replyIntent.putExtra(EXTRA_REPLY, "temp");
+        setResult(RESULT_CANCELED, replyIntent);
+
         addSignInButtonListener();
     }
 
@@ -53,6 +58,10 @@ public class LoginActivity extends AccountManagementActivity {
                     toast.show();
                 }
                 if (result.containsKey(username) && result.get(username).checkPassword(password)) {
+                    Intent replyIntent = new Intent();
+                    replyIntent.putExtra(EXTRA_REPLY, "temp");
+                    setResult(RESULT_OK, replyIntent);
+
                     user = result.get(username);
                     String message = "Sign In Successful";
                     Toast toast = Toast.makeText(getApplicationContext(),

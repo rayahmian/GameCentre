@@ -31,6 +31,11 @@ public class CreateAccountActivity extends AccountManagementActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
+        Intent replyIntent = new Intent();
+        replyIntent.putExtra(EXTRA_REPLY, "temp");
+        setResult(RESULT_CANCELED, replyIntent);
+
         addCreateAccountActivityButtonListener();
     }
 
@@ -56,6 +61,10 @@ public class CreateAccountActivity extends AccountManagementActivity{
                     toast.show();
                 }
                 if(!(result.containsKey(username))) {
+                    Intent replyIntent = new Intent();
+                    replyIntent.putExtra(EXTRA_REPLY, "temp");
+                    setResult(RESULT_OK, replyIntent);
+
                     result.put(username, newUser);
                     user = newUser;
                     try {

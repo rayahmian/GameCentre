@@ -41,7 +41,9 @@ public class Autosave extends Activity {
      * Keeps track of previous moves.
      */
     private ArrayList<Board> movesList;
-
+    /**
+     * Location of the autosave data.
+     */
     public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AutoSave.ser";
 
     Autosave(ArrayList<Board> moves){
