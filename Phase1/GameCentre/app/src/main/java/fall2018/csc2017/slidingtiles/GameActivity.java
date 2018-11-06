@@ -1,6 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,12 +12,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -55,6 +59,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
+    public UserAccount user;
+    Map<String, UserAccount> result;
+    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -68,6 +76,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        user = (UserAccount) intent.getSerializableExtra(CreateAccountActivity.EXTRA_MESSAGE);
         loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_main);
@@ -192,6 +202,30 @@ public class GameActivity extends AppCompatActivity implements Observer {
             public void onClick(View v) {
                 saveToFile(SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
+                user.savedGame = boardManager;
+                try {
+                    // read object from file
+                    FileInputStream fis = new FileInputStream(FILENAME);
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    result = (Map<String, UserAccount>) ois.readObject();
+                    ois.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                result.put(user.getUsername(), user);
+                try {
+                    // write object to file
+                    FileOutputStream fos = new FileOutputStream(FILENAME);
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(result);
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 makeToastSavedText();
             }
         });
