@@ -39,7 +39,9 @@ public class StartingActivity extends AppCompatActivity {
      * Unique tag for settings intent reply.
      */
     public static final int COMPLEXITY_REQUEST = 1;
-    private UserAccount user;
+    public UserAccount user;
+    public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
+
     /**
      * Get the game complexity.
      */
@@ -123,9 +125,20 @@ public class StartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFromFile(SAVE_FILENAME);
-                saveToFile(TEMP_SAVE_FILENAME);
-                makeToastLoadedText();
+                if(user==null) {
+                    loadFromFile(SAVE_FILENAME);
+                    saveToFile(TEMP_SAVE_FILENAME);
+                    makeToastLoadedText();
+                }
+                else if(user.savedGame==null) {
+                    boardManager = new BoardManager(getGameComplexity(), getGameComplexity());
+                }
+                else {
+                    boardManager = user.savedGame;
+                    saveToFile(SAVE_FILENAME);
+                    saveToFile(TEMP_SAVE_FILENAME);
+                    makeToastLoadedText();
+                }
                 switchToGame();
             }
         });
@@ -174,6 +187,7 @@ public class StartingActivity extends AppCompatActivity {
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
         saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        tmp.putExtra(EXTRA_MESSAGE, user);
         startActivity(tmp);
     }
 
