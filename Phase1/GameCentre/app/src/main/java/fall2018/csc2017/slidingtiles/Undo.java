@@ -20,9 +20,17 @@ public class Undo {
     /**
      * The board of the last move. If there were no prior moves, lastBoard is null.
      */
-    public Board lastBoard = null;
-    public Board currentBoard = null;
-    public ArrayList<Board> boards;
+    private Board lastBoard = null;
+
+    /**
+     * The current board.
+     */
+    private Board currentBoard = null;
+
+    /**
+     * ArrayList of the serialized boards.
+     */
+    private ArrayList<Board> boards;
 
     private static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/Undo.ser";
 
