@@ -32,7 +32,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, S
     /**
      *  The players score.
      */
-    private int score = 50;
+    private int score = 250;
 
     /**
      * A new board of tiles in row-major order.
@@ -185,12 +185,20 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, S
             return result;
         }
     }
-
+    /**
+     * Return the current score.
+     *
+     * @return the current score.
+     */
     @Override
     public int getScore() {
         return this.score;
     }
-
+    /**
+     * Set the current score.
+     *
+     * @param score the updated score.
+     */
     @Override
     public void setScore(int score) {
         this.score = score;

@@ -32,26 +32,31 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * Implements Autosave functionality.
+ */
 public class Autosave extends Activity {
-    /* The Class that Implements the Auto save Functionality
+
+    /**
+     * Keeps track of previous moves.
      */
-
     private ArrayList<Board> movesList;
-
+    /**
+     * Location of the autosave data.
+     */
     public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AutoSave.ser";
 
     Autosave(ArrayList<Board> moves){
         this.movesList = moves;
-        auto_save_to_file();
+        autosaveToFile();
     }
 
     Autosave(){
-        this.movesList = new ArrayList<Board>();
-        auto_save_to_file();
+        this.movesList = new ArrayList<>();
+        autosaveToFile();
     }
 
-    public void auto_save_to_file(){
+    public void autosaveToFile(){
         try {
             FileOutputStream outputStream = new FileOutputStream(FILENAME);
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
@@ -63,7 +68,7 @@ public class Autosave extends Activity {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
-    public ArrayList<Board> auto_loadFromFile() {
+    public ArrayList<Board> autoloadFromFile() {
         try {
             FileInputStream var2 = new FileInputStream(FILENAME);
             BufferedInputStream var3 = new BufferedInputStream(var2);

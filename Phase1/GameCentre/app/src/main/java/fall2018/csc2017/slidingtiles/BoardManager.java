@@ -20,7 +20,7 @@ class BoardManager extends AppCompatActivity implements Serializable {
      */
     private Board board;
 
-    private ArrayList<Board> moves_list = new ArrayList<Board>();
+    private ArrayList<Board> moves_list = new ArrayList<>();
 
     /**
      * Manage a board that has been pre-populated.
@@ -52,11 +52,6 @@ class BoardManager extends AppCompatActivity implements Serializable {
         Collections.shuffle(tiles);
         this.board = new Board(tiles, rows, cols);
         moves_list.add(board);
-        // For testing the autosave load method
-        // Autosave autosaver = new Autosave();
-        // moves_list = autosaver.auto_loadFromFile();
-        // int len = moves_list.size() - 1;
-        // this.board = moves_list.get(len);
     }
 
     /**
@@ -73,11 +68,6 @@ class BoardManager extends AppCompatActivity implements Serializable {
             correct++;
         }
         return solved;
-    }
-
-    void removeMove() {
-        moves_list.remove(moves_list.size() - 1);
-        this.board = moves_list.get(moves_list.size() - 1);
     }
 
     /**

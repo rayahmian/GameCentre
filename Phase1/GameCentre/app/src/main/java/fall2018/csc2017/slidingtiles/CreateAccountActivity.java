@@ -18,34 +18,24 @@ import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-public class CreateAccountActivity extends AppCompatActivity {
-
-    String username, password;
-    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
-    public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
-    EditText usernameInput;
-    EditText passwordInput;
+/**
+ * Create a new account.
+ */
+public class CreateAccountActivity extends AccountManagementActivity{
+    /**
+     * The Create Account button.
+     */
     Button createAccount;
-    Map<String, UserAccount> result;
-    UserAccount user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-        try {
-            // read object from file
-            FileInputStream fis = new FileInputStream(FILENAME);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            result = (Map<String, UserAccount>) ois.readObject();
-            ois.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
+        Intent replyIntent = new Intent();
+        replyIntent.putExtra(EXTRA_REPLY, "temp");
+        setResult(RESULT_CANCELED, replyIntent);
+
         addCreateAccountActivityButtonListener();
     }
 
@@ -71,6 +61,10 @@ public class CreateAccountActivity extends AppCompatActivity {
                     toast.show();
                 }
                 if(!(result.containsKey(username))) {
+                    Intent replyIntent = new Intent();
+                    replyIntent.putExtra(EXTRA_REPLY, "temp");
+                    setResult(RESULT_OK, replyIntent);
+
                     result.put(username, newUser);
                     user = newUser;
                     try {
@@ -92,10 +86,5 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-    private void switchToChooseGameActivity() {
-        Intent tmp = new Intent(this, ChooseGameActivity.class);
-        tmp.putExtra(EXTRA_MESSAGE, user);
-        startActivity(tmp);
     }
 }

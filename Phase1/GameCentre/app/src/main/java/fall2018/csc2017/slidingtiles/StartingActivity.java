@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Map;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -39,7 +43,22 @@ public class StartingActivity extends AppCompatActivity {
      * Unique tag for settings intent reply.
      */
     public static final int COMPLEXITY_REQUEST = 1;
-    private UserAccount user;
+    /**
+     * The current logged in user.
+     */
+    UserAccount user;
+    /**
+     * Unique tag required for the intent extra.
+     */
+    public static final String EXTRA_MESSAGE = "fall2018.csc2017.slidingtiles.extra.message";
+    /**
+     * Key-value pairs of username's and the corresponding UserAccount object.
+     */
+    Map<String, UserAccount> result;
+    /**
+     * Location of the account activity data.
+     */
+    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
     /**
      * Get the game complexity.
      */
@@ -58,6 +77,8 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_starting_);
+
         boardManager = new BoardManager(getGameComplexity(), getGameComplexity());
         saveToFile(TEMP_SAVE_FILENAME);
         Intent intent = getIntent();
@@ -74,6 +95,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     public void scoreboardPressed(View view) {
         Intent intent = new Intent(this, ScoreBoardActivity.class);
+        intent.putExtra("currentUser", user);
         startActivity(intent);
     }
 
@@ -123,9 +145,35 @@ public class StartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFromFile(SAVE_FILENAME);
-                saveToFile(TEMP_SAVE_FILENAME);
-                makeToastLoadedText();
+                if(user==null) {
+                    loadFromFile(SAVE_FILENAME);
+                    saveToFile(TEMP_SAVE_FILENAME);
+                    makeToastLoadedText();
+                }
+                try {
+                    // read object from file
+                    FileInputStream fis = new FileInputStream(FILENAME);
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    result = (Map<String, UserAccount>) ois.readObject();
+                    ois.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                user = result.get(user.getUsername());
+                if(user.savedGame==null) {
+                    boardManager = new BoardManager(getGameComplexity(), getGameComplexity());
+                }
+                else {
+                    user = result.get(user.getUsername());
+                    boardManager = user.savedGame;
+                    saveToFile(SAVE_FILENAME);
+                    saveToFile(TEMP_SAVE_FILENAME);
+                    makeToastLoadedText();
+                }
                 switchToGame();
             }
         });
@@ -174,6 +222,7 @@ public class StartingActivity extends AppCompatActivity {
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
         saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        tmp.putExtra(EXTRA_MESSAGE, user);
         startActivity(tmp);
     }
 
