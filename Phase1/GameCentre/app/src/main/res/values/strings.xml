@@ -27,4 +27,16 @@
     </string>
     <string name="button_slidingTiles">Sliding Tiles</string>
     <string name="text_gameChoice">Please choose a game to play!</string>
+    <!-- Strings related to the scoreboard. -->
+    <string name="AccountName1" />
+    <string name="AccountName2" />
+    <string name="AccountName3" />
+    <string name="AccountName4" />
+    <string name="AccountName5" />
+    <string name="Score1" />
+    <string name="Score2" />
+    <string name="Score3" />
+    <string name="Score4" />
+    <string name="Score5" />
+    <string name="text_scoreboard">Scoreboard</string>
 </resources>

@@ -29,6 +29,7 @@ import java.util.Observer;
  */
 public class GameActivity extends AppCompatActivity implements Observer {
 
+    private static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
     /**
      * The board manager.
      */
@@ -58,10 +59,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
     // Grid View and calculated column height and width based on device size
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
-
-    public UserAccount user;
+    /**
+     * The currently logged in user.
+     */
+    private UserAccount user;
+    /**
+     * The hashmap of all users.
+     */
     Map<String, UserAccount> result;
-    public static final String FILENAME = "/data/data/fall2018.csc2017.slidingtiles/files/AccountActivity.ser";
 
     /**
      * Set up the background image for each button based on the master list
@@ -239,5 +244,35 @@ public class GameActivity extends AppCompatActivity implements Observer {
         TextView scoreTextView = (TextView) findViewById(R.id.textView9);
         String newScore = "Score: " + boardManager.getBoard().getScore();
         scoreTextView.setText(newScore);
+
+        if (boardManager.puzzleSolved() && boardManager.getBoard().getScore() > user.getMaxScore()) {
+            user.setMaxScore(boardManager.getBoard().getScore());
+            saveToFile(SAVE_FILENAME);
+            saveToFile(TEMP_SAVE_FILENAME);
+            user.savedGame = boardManager;
+            try {
+                // read object from file
+                FileInputStream fis = new FileInputStream(FILENAME);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                result = (Map<String, UserAccount>) ois.readObject();
+                ois.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            result.put(user.getUsername(), user);
+            try {
+                // write object to file
+                FileOutputStream fos = new FileOutputStream(FILENAME);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(result);
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

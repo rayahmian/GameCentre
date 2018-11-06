@@ -32,7 +32,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, S
     /**
      *  The players score.
      */
-    private int score = 50;
+    private int score = 250;
 
     /**
      * A new board of tiles in row-major order.

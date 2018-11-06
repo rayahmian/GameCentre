@@ -80,6 +80,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     public void scoreboardPressed(View view) {
         Intent intent = new Intent(this, ScoreBoardActivity.class);
+        intent.putExtra("currentUser", user);
         startActivity(intent);
     }
 
