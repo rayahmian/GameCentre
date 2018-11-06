@@ -55,7 +55,9 @@ public class Autosave extends Activity {
         this.movesList = new ArrayList<>();
         autosaveToFile();
     }
-
+    /**
+     * Saves the list of all previous moves made to a Serializable File
+     */
     public void autosaveToFile(){
         try {
             FileOutputStream outputStream = new FileOutputStream(FILENAME);
@@ -68,6 +70,9 @@ public class Autosave extends Activity {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
+    /**
+     * Loads the list of all previous moves made from the Serializable File
+     */
     public ArrayList<Board> autoloadFromFile() {
         try {
             FileInputStream var2 = new FileInputStream(FILENAME);
